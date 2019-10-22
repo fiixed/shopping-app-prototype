@@ -2,12 +2,14 @@ import 'package:flutter/foundation.dart';
 
 class CartItem {
   final String id;
+  final String productId;
   final String title;
   final int quantity;
   final double price;
 
   CartItem({
     @required this.id,
+    @required this.productId,
     @required this.title,
     @required this.quantity,
     @required this.price,
@@ -33,8 +35,13 @@ class Cart with ChangeNotifier {
     return total;
   }
 
-  void addItem(String productId, double price, String title) {
+  void addItem(
+    String productId,
+    double price,
+    String title,
+  ) {
     if (_items.containsKey(productId)) {
+      // change quantity...
       _items.update(
         productId,
         (existingCartItem) => CartItem(
@@ -55,6 +62,11 @@ class Cart with ChangeNotifier {
         ),
       );
     }
+    notifyListeners();
+  }
+
+  void removeItem(String productId) {
+    _items.remove(productId);
     notifyListeners();
   }
 }
