@@ -6,7 +6,6 @@ import '../providers/products_provider.dart';
 import '../widgets/user_product_item.dart';
 import '../screens/edit_product_screen.dart';
 
-
 class UserProductsScreen extends StatelessWidget {
   static const routeName = '/user-products';
   const UserProductsScreen({Key key}) : super(key: key);
@@ -34,9 +33,11 @@ class UserProductsScreen extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Column(
               children: <Widget>[
-                UserProductItem(productsData.items[index].title,
+                UserProductItem(
+                    productsData.items[index].id,
+                    productsData.items[index].title,
                     productsData.items[index].imageUrl),
-                    Divider(),
+                Divider(),
               ],
             );
           },
