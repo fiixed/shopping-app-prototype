@@ -7,7 +7,7 @@ import '../providers/orders.dart' as ord;
 class OrderItem extends StatefulWidget {
   final ord.OrderItem order;
 
-  const OrderItem({this.order});
+  const OrderItem(this.order);
 
   @override
   _OrderItemState createState() => _OrderItemState();
