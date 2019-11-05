@@ -9,6 +9,7 @@ import './screens/edit_product_screen.dart';
 import './providers/products_provider.dart';
 import './providers/cart.dart';
 import './providers/orders.dart';
+import 'providers/auth.dart';
 import 'screens/auth-screen.dart';
 
 void main() => runApp(MyApp());
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           builder: (ctx) => Cart(),
         ),
         ChangeNotifierProvider(
-          builder: (ctx) => Orders(),
+          builder: (ctx) => Auth(),
         ),
       ],
       child: MaterialApp(
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.purple,
             accentColor: Colors.deepOrange,
             fontFamily: 'Lato'),
-        home: ProductsOverviewScreen(),
+        home: AuthScreen(),
         routes: {
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
           CartScreen.routeName: (ctx) => CartScreen(),
