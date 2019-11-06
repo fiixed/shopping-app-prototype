@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:provider/provider.dart';
-import 'package:shopping_app_prototype/providers/auth.dart';
 
+import '../screens/product_detail_screen.dart';
 import '../providers/product.dart';
 import '../providers/cart.dart';
-import '../screens/product_detail_screen.dart';
+import '../providers/auth.dart';
 
 class ProductItem extends StatelessWidget {
   // final String id;
@@ -20,9 +19,7 @@ class ProductItem extends StatelessWidget {
     final cart = Provider.of<Cart>(context, listen: false);
     final authData = Provider.of<Auth>(context, listen: false);
     return ClipRRect(
-      borderRadius: BorderRadius.circular(
-        10,
-      ),
+      borderRadius: BorderRadius.circular(10),
       child: GridTile(
         child: GestureDetector(
           onTap: () {
@@ -38,31 +35,36 @@ class ProductItem extends StatelessWidget {
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: IconButton(
-            icon: Icon(
-              product.isFavorite ? Icons.favorite : Icons.favorite_border,
-            ),
-            onPressed: () {
-              product.toggleFavoriteStatus(authData.token);
-            },
-            color: Theme.of(context).accentColor,
+          leading: Consumer<Product>(
+            builder: (ctx, product, _) => IconButton(
+                  icon: Icon(
+                    product.isFavorite ? Icons.favorite : Icons.favorite_border,
+                  ),
+                  color: Theme.of(context).accentColor,
+                  onPressed: () {
+                    product.toggleFavoriteStatus(
+                      authData.token,
+                      authData.userId,
+                    );
+                  },
+                ),
           ),
           title: Text(
             product.title,
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: Icon(
+              Icons.shopping_cart,
+            ),
             onPressed: () {
-              cart.addItem(
-                product.id,
-                product.price,
-                product.title,
-              );
+              cart.addItem(product.id, product.price, product.title);
               Scaffold.of(context).hideCurrentSnackBar();
               Scaffold.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Added item to cart!'),
+                  content: Text(
+                    'Added item to cart!',
+                  ),
                   duration: Duration(seconds: 2),
                   action: SnackBarAction(
                     label: 'UNDO',
@@ -80,3 +82,4 @@ class ProductItem extends StatelessWidget {
     );
   }
 }
+

@@ -6,7 +6,7 @@ import './screens/cart_screen.dart';
 import './screens/user_products_screen.dart';
 import './screens/orders_screen.dart';
 import './screens/edit_product_screen.dart';
-import './providers/products_provider.dart';
+import './providers/products.dart';
 import './providers/cart.dart';
 import './providers/orders.dart';
 import 'providers/auth.dart';
@@ -23,15 +23,17 @@ class MyApp extends StatelessWidget {
           builder: (ctx) => Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
-          builder: (ctx, auth, previousProducts) => Products(auth.token,
+          builder: (ctx, auth, previousProducts) => Products(
+              auth.token,
+              auth.userId,
               previousProducts == null ? [] : previousProducts.items),
         ),
         ChangeNotifierProvider(
           builder: (ctx) => Cart(),
         ),
         ChangeNotifierProxyProvider<Auth, Orders>(
-          builder: (ctx, auth, previousOrder) => Orders(auth.token,
-              previousOrder == null ? [] : previousOrder.orders),
+          builder: (ctx, auth, previousOrder) => Orders(
+              auth.token, previousOrder == null ? [] : previousOrder.orders),
         ),
       ],
       child: Consumer<Auth>(

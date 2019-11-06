@@ -4,7 +4,7 @@ import 'package:shopping_app_prototype/widgets/app_drawer.dart';
 
 import '../widgets/products_grid.dart';
 import '../widgets/badge.dart';
-import '../providers/products_provider.dart';
+import '../providers/products.dart';
 import '../providers/cart.dart';
 import '../screens/cart_screen.dart';
 
